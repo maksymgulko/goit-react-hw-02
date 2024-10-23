@@ -1,17 +1,50 @@
-// import { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import Description from "./components/Description/Description";
 import Options from "./components/Options/Options";
 import Feedback from "./components/Feedback/Feedback";
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const [types, setTypes] = useState({ good: 0, neutral: 0, bad: 0 });
+
+  const updateFeedback = (feedbackType) => {
+    setTypes({
+      ...types,
+      [feedbackType]: types[feedbackType] + 1,
+    });
+  };
+
+  const resetFeedback = () => {
+    setTypes({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
+  };
+
+  const totalFeedback = types.good + types.neutral + types.bad;
+  const positiveFeedback = Math.round((types.good / totalFeedback) * 100);
 
   return (
     <>
-      <Description />
-      <Options />
-      <Feedback />
+      <Description
+        title="Sip Happens Café"
+        description="Please leave your feedback about our service by selecting one of the options below."
+      />
+      <Options
+        onGoodClick={() => updateFeedback("good")}
+        onNeutralClick={() => updateFeedback("neutral")}
+        onBadClick={() => updateFeedback("bad")}
+        onReset={resetFeedback}
+        totalFeedback={totalFeedback}
+      />
+      <Feedback
+        good={types.good}
+        neutral={types.neutral}
+        bad={types.bad}
+        totalFeedback={totalFeedback}
+        positiveFeedback={positiveFeedback}
+      />
     </>
   );
 }
