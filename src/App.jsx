@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Description from "./components/Description/Description";
 import Options from "./components/Options/Options";
 import Feedback from "./components/Feedback/Feedback";
 
 function App() {
-  const [types, setTypes] = useState({ good: 0, neutral: 0, bad: 0 });
+  const [types, setTypes] = useState(() => {
+    const savedObject = window.localStorage.getItem("saved-feedback");
+
+    if (savedObject !== null) {
+      return JSON.parse(savedObject);
+    }
+
+    return { good: 0, neutral: 0, bad: 0 };
+  });
 
   const updateFeedback = (feedbackType) => {
     setTypes({
@@ -13,6 +21,10 @@ function App() {
       [feedbackType]: types[feedbackType] + 1,
     });
   };
+
+  useEffect(() => {
+    window.localStorage.setItem("saved-feedback", JSON.stringify(types));
+  }, [types]);
 
   const resetFeedback = () => {
     setTypes({
