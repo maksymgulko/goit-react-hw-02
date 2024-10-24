@@ -1,3 +1,5 @@
+import s from "./Options.module.css";
+
 const Options = ({
   onGoodClick,
   onNeutralClick,
@@ -6,11 +8,21 @@ const Options = ({
   totalFeedback,
 }) => {
   return (
-    <div>
-      <button onClick={onGoodClick}>Good</button>
-      <button onClick={onNeutralClick}>Neutral</button>
-      <button onClick={onBadClick}>Bad</button>
-      {totalFeedback > 0 && <button onClick={onReset}>Reset</button>}
+    <div className={s.container}>
+      <button className={s.button} onClick={onGoodClick}>
+        Good
+      </button>
+      <button className={s.button} onClick={onNeutralClick}>
+        Neutral
+      </button>
+      <button className={s.button} onClick={onBadClick}>
+        Bad
+      </button>
+      {totalFeedback > 0 && (
+        <button className={s.button} onClick={onReset}>
+          Reset
+        </button>
+      )}
     </div>
   );
 };

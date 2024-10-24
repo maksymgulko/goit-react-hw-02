@@ -1,13 +1,15 @@
+import s from "./Feedback.module.css";
+
 const Feedback = ({ good, neutral, bad, totalFeedback, positiveFeedback }) => {
   return (
     <div>
       {totalFeedback > 0 ? (
-        <div>
+        <div className={s.options}>
           <p>Good: {good}</p>
           <p>Neutral: {neutral}</p>
           <p>Bad: {bad}</p>
-          <p>Total Feedback: {totalFeedback}</p>
-          <p>Positive Feedback: {positiveFeedback}%</p>
+          <p>Total: {totalFeedback}</p>
+          <p>Positive: {positiveFeedback}%</p>
         </div>
       ) : (
         <p>No feedback yet</p>
