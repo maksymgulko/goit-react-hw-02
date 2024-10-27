@@ -3,6 +3,7 @@ import "./App.css";
 import Description from "./components/Description/Description";
 import Options from "./components/Options/Options";
 import Feedback from "./components/Feedback/Feedback";
+import Notification from "./components/Notification/Notification";
 
 function App() {
   const [types, setTypes] = useState(() => {
@@ -50,13 +51,17 @@ function App() {
         onReset={resetFeedback}
         totalFeedback={totalFeedback}
       />
-      <Feedback
-        good={types.good}
-        neutral={types.neutral}
-        bad={types.bad}
-        totalFeedback={totalFeedback}
-        positiveFeedback={positiveFeedback}
-      />
+      {totalFeedback > 0 ? (
+        <Feedback
+          good={types.good}
+          neutral={types.neutral}
+          bad={types.bad}
+          totalFeedback={totalFeedback}
+          positiveFeedback={positiveFeedback}
+        />
+      ) : (
+        <Notification />
+      )}
     </>
   );
 }
